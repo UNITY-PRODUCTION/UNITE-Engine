@@ -1,0 +1,77 @@
+{
+  "name": "UNITE_Engine v1.0",
+  "tree": {
+    "$className": "DataModel",
+
+    "Lighting": {
+      "$path": "Explorer/Lighting",
+      "$properties": {
+        "Ambient": [0.27451, 0.27451, 0.27451],
+        "Brightness": 1,
+        "ColorShift_Bottom": [0, 0, 0],
+        "ColorShift_Top": [0, 0, 0],
+        "EnvironmentDiffuseScale": 0.2,
+        "EnvironmentSpecularScale": 0.82,
+        "GlobalShadows": true,
+        "OutdoorAmbient": [0.27451, 0.27451, 0.27451],
+        "ShadowSoftness": 0.71,
+        "Technology": "Future",
+
+        "Archivable": true,
+        "ClockTime": 14,
+        "GeographicLatitude": 0,
+        "TimeOfDay": "14:00:00"
+      },
+
+      "Atmosphere": {
+        "$className": "Atmosphere"
+      },
+
+      "Sky": {
+        "$className": "Sky",
+        "$properties": {
+          "SkyboxBk": "http://www.roblox.com/asset/?id=91458024",
+          "SkyboxDn": "http://www.roblox.com/asset/?id=91457980",
+          "SkyboxFt": "http://www.roblox.com/asset/?id=91458024",
+          "SkyboxLf": "http://www.roblox.com/asset/?id=91458024",
+          "SkyboxRt": "http://www.roblox.com/asset/?id=91458024",
+          "SkyboxUp": "http://www.roblox.com/asset/?id=91458002",
+          "StarCount": 5000,
+          "SunAngularSize": 3.5
+        }
+      },
+
+      "BloomEffect": {
+        "$className": "BloomEffect"
+      },
+
+      "SunRaysEffect": {
+        "$className": "SunRaysEffect"
+      },
+
+      "BlurEffect": {
+        "$className": "BlurEffect",
+        "$properties": {
+          "Size": 3
+        }
+      }
+    },
+
+    "ReplicatedStorage": {
+      "UNITE_Engine": {
+        "$className": "Configuration",
+        "$path": "Explorer/ReplicatedStorage/UNITE_Engine"
+      }
+    },
+
+    "ServerScriptService": {
+      "$path": "Explorer/ServerScriptService"
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts":{
+        "$path": "Explorer/StarterPlayer/StarterPlayerScripts"
+      }
+    }
+  }
+}
