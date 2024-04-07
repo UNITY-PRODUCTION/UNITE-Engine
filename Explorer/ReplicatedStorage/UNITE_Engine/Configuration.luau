@@ -1,51 +1,11 @@
 local Configuration = {
 --===================================================================================================
---[ GENERAL ]========================================================================================
+--[ ENGINE ]=========================================================================================
 --===================================================================================================
 
-    coreGui = {
-        Backpack = false,
-        Captures = false,
-        Chat = false,
-        EmotesMenu = false,
-        Health = false,
-        PlayerList = true
-    },
-
---===================================================================================================
---[ CAMERA ]=========================================================================================
---===================================================================================================
-
-    camera = {
-        cameraMode = Enum.CameraMode.Classic,
-        cameraMaxZoomDistance = 15,
-        cameraMinZoomDistance = 3
-    },
-
---===================================================================================================
---[ MOUSE ]==========================================================================================
---===================================================================================================
-
-    mouse = {
+    notification = {  -- Notification sent by the game engine.
         enabled = true,
-        toggleMouse = true,
-        mouseKeyCode = Enum.KeyCode.LeftAlt
-    },
-
---===================================================================================================
---[ CHARACTER ]======================================================================================
---===================================================================================================
-
-    character = {
-        characterMaxSlopeAngle = 50,
-        characterWalkSpeed = 8
-    },
-
-    characterJumpSettings = {
-        enabled = false,
-        characterJumpHeight = 7.2,
-        characterJumpPower = 50.0,
-        characterUsJumpPower = true
+        waitingTime = 20
     },
 
 --===================================================================================================
@@ -72,24 +32,10 @@ local Configuration = {
         groupId = 15167882,
         rankPermissions = {
             [255] = {  -- Owner
-                canManageServer = true,
-                canManagePermissions = true,
-                canAccessAdminPanel = true,
-                canBanUser = true,
-                canKickUser = true,
-                canWarnUser = true,
-                canShowLogs = true,
                 canJoinTheServer = true,
             },
 
             [0] = {  -- Guest
-                canManageServer = false,
-                canManagePermissions = false,
-                canAccessAdminPanel = false,
-                canBanUser = false,
-                canKickUser = false,
-                canWarnUser = false,
-                canShowLogs = false,
                 canJoinTheServer = true,
             }
         }
@@ -100,7 +46,7 @@ local Configuration = {
 --===================================================================================================
 
     debugMode = true,
-    version = "UNITE Engine 1.0 - R15"
+    version = "UNITE Engine 0.2.0 - SECURITY V2"
 }
 
 return Configuration

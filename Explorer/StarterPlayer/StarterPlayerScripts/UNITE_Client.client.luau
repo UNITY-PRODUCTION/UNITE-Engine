@@ -1,22 +1,26 @@
-local replicatedStorage = game:GetService("ReplicatedStorage")
-local configuration = require(replicatedStorage.UNITE_Engine.Configuration)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Configuration = require(ReplicatedStorage.UNITE_Engine.Configuration)
 
-local success, err = pcall(function()
-    for _, module in pairs(replicatedStorage.UNITE_Engine.Modules:GetChildren()) do
-        if module:IsA("ModuleScript") then
-            if configuration.debugMode then
-                print("[UNITE CLIENT] : Loading module :", module.Name)
-            end
-            local loadModule = require(module)
-            loadModule()
+local function onModuleCalled(moduleScript)
+    local result, err = pcall(function()
+        if Configuration.debugMode then
+            print("[CLIENT] : Loading module", moduleScript.Name)
+        end
+        local module = require(moduleScript)
+        module()
+    end)
+
+    if not result then
+        if Configuration.debugMode then
+            warn("[CLIENT] :", err)
         end
     end
-end)
+end
 
-if configuration.debugMode then
-    if success then
-        print("[UNITE CLIENT] : All client-side modules have been loaded.")
-    else
-        warn(err)
-    end
+for _, moduleScript in ipairs(ReplicatedStorage.UNITE_Engine.Modules.Clients:GetChildren()) do
+    onModuleCalled(moduleScript)
+end
+
+if Configuration.debugMode then
+    print("[CLIENT] : All client-side modules have been loaded.")
 end

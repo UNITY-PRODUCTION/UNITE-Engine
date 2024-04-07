@@ -1,64 +1,56 @@
-local replicatedStorage = game:GetService("ReplicatedStorage")
-local configuration = require(replicatedStorage.UNITE_Engine.Configuration)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Configuration = require(ReplicatedStorage.UNITE_Engine.Configuration)
 
-local players = game:GetService("Players")
+local Players = game:GetService("Players")
 
-local function onKick(player, service, reason)
-    if configuration.debugMode then
-        warn(service, ":", player.Name, "tried to join to server.")
-    end
+print(Configuration.version)
+
+local function onKick(player, title, reason)
     player:Kick(reason)
-end
-
-local function onPlayerRemoving(player)
-    if configuration.debugMode then
-        print(player.Name, "has left the server")
+    
+    if Configuration.debugMode then
+        warn(title, ":", player.Name, "tried to join to server.")
     end
 end
 
 local function onPlayerAdded(player)
-    if configuration.ageRestrict.enabled and player.AccountAge < configuration.ageRestrict.ageLimite then
-        onKick(player, "[AGE RESTRICTION]", ("Age restriction has been enabled on the server. Please wait " .. configuration.ageRestrict.ageLimite - player.AccountAge .. " days to join the server."))
+    if Configuration.debugMode then
+        print(player.Name, "has joined the server.")
     end
 
-    if configuration.blacklist.enabled then
-        for _, userId in configuration.blacklist.userId do
-            if player.UserId == userId then
-                onKick(player, "[BLACKLIST]", "You are registered in the blacklist.")
-            end
-        end
+    if Configuration.ageRestrict.enabled and player.AccountAge < Configuration.ageRestrict.ageLimite then
+        local remainingAge = Configuration.ageRestrict.ageLimite - player.AccountAge
+        onKick(player, "[AGE RESTRICTION]", ("Age restriction has been enabled on the server. Please wait " .. remainingAge .. "days to join the server."))
     end
 
-    if configuration.whitelist.enabled then
-        local inWhitelist = false
-        for _, userId in configuration.whitelist.userId do
-            if player.UserId == userId then
-                inWhitelist = true
-                break
-            end
-        end
-
-        if not inWhitelist then
-            onKick(player, "[WHITELIST]", "You are not registered in the whitelist.")
-        end
+    if Configuration.blacklist.enabled and table.find(Configuration.blacklist.userId, player.UserId) then
+        onKick(player, "[BLACKLIST]", "You are registered in the blacklist.")
     end
 
-    if configuration.robloxGroup.enabled then
-        if not configuration.robloxGroup.rankPermissions[player:GetRankInGroup(configuration.robloxGroup.groupId)].canJoinTheServer then
+    if Configuration.whitelist.enabled and not table.find(Configuration.whitelist.userId, player.UserId) then
+        onKick(player, "[WHITELIST]", "You are not registered in the whitelist.")
+    end
+
+    if Configuration.robloxGroup.enabled then
+        local rankInGroup = player:GetRankInGroup(Configuration.robloxGroup.groupId)
+        if not Configuration.robloxGroup.rankPermissions[rankInGroup].canJoinTheServer then
             onKick(player, "[ROBLOX GROUP]", "Your current permissions do not allow you to join the server.")
         end
     end
-
-    local function onCharacterAdded()
-        if configuration.debugMode then
-            print(player.Name, "has joined the server.")
-        end
-    end
-
-    player.CharacterAdded:Connect(onCharacterAdded)
 end
 
-print(configuration.version)
+local function onPlayerRemoving(player)
+    if Configuration.debugMode then
+        print(player.Name, "has left the server.")
+    end
+end
 
-players.PlayerAdded:Connect(onPlayerAdded)
-players.PlayerRemoving:Connect(onPlayerRemoving)
+local function onBindToClose()
+    if Configuration.debugMode then
+        print("Closing the server.")
+    end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+Players.PlayerRemoving:Connect(onPlayerRemoving)
+game:BindToClose(onBindToClose)
