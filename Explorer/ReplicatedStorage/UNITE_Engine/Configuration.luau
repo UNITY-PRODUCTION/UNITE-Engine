@@ -3,6 +3,11 @@ local Configuration = {
 --[ ENGINE ]=========================================================================================
 --===================================================================================================
 
+    commandLine = {  -- Execute commands in real time.
+        enabled = true,  -- If this setting is disabled, several features will also be disabled.
+        keyCode = Enum.KeyCode.Quote
+    },
+
     notification = {  -- Notification sent by the game engine.
         enabled = true,
         waitingTime = 20

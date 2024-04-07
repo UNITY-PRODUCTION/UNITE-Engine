@@ -17,8 +17,12 @@ local function onModuleCalled(moduleScript)
     end
 end
 
+onModuleCalled(ReplicatedStorage.UNITE_Engine.Modules.Clients.GraphicalUserInterfaces)
+
 for _, moduleScript in ipairs(ReplicatedStorage.UNITE_Engine.Modules.Clients:GetChildren()) do
-    onModuleCalled(moduleScript)
+    if moduleScript ~= "GraphicalUserInterfaces" then
+        onModuleCalled(moduleScript)
+    end
 end
 
 if Configuration.debugMode then
